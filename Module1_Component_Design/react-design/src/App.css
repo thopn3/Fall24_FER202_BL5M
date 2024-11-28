@@ -1,0 +1,9 @@
+/* Định kiểu lại các class: row, col */
+.row{
+    border: 1px solid gray;
+}
+
+.banner img{
+    width: 100%;
+    height: 250px;
+}
