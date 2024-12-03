@@ -1,0 +1,54 @@
+{
+    "users": [
+        {
+            "uId": 1,
+            "user": "user1",
+            "pass": "abc@123"
+        },
+        {
+            "uId": 2,
+            "user": "user2",
+            "pass": "abc@123"
+        }
+    ],
+    "jobs": [
+        {
+            "jId": 1,
+            "title": "Job 1",
+            "cId": 1,
+            "uId": 1,
+            "status": false,
+            "issues": [
+                {"iId": 1, "title": "Issue 1", "start": "2024/12/02", "end": "2024/12/03", "status": true},
+                {"iId": 2, "title": "Issue 2", "start": "2024/12/01", "end": "2024/12/04", "status": false},
+                {"iId": 3, "title": "Issue 3", "start": "2024/12/02", "end": "2024/12/03", "status": false}
+            ]
+        },
+        {
+            "jId": 2,
+            "title": "Job 2",
+            "cId": 2,
+            "uId": 1,
+            "status": true,
+            "issues": [
+                {"iId": 1, "title": "Issue 1", "start": "2024/12/03", "end": "2024/12/03", "status": true},
+                {"iId": 2, "title": "Issue 2", "start": "2024/12/03", "end": "2024/12/04", "status": true}
+            ]
+        },
+        {
+            "jId": 3,
+            "title": "Job 3",
+            "cId": 1,
+            "uId": 2,
+            "status": false,
+            "issues": [
+                {"iId": 1, "title": "Issue 1", "start": "2024/12/03", "end": "2024/12/03", "status": true},
+                {"iId": 2, "title": "Issue 2", "start": "2024/12/03", "end": "2024/12/04", "status": false}
+            ]
+        }
+    ],
+    "categories": [
+        {"cId": 1, "name": "Category 1"},
+        {"cId": 2, "name": "Category 2"}
+    ]
+}
