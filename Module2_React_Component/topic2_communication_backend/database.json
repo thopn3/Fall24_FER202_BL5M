@@ -14,7 +14,7 @@
     "jobs": [
         {
             "jId": 1,
-            "title": "Job 1",
+            "title": "Homework",
             "cId": 1,
             "uId": 1,
             "status": false,
@@ -26,7 +26,7 @@
         },
         {
             "jId": 2,
-            "title": "Job 2",
+            "title": "Learn",
             "cId": 2,
             "uId": 1,
             "status": true,
