@@ -7,6 +7,7 @@ function Job() {
     const [jobs, setJobs] = useState([]);
     const [categories, setCategories] = useState([]);
     const [search, setSearch] = useState("");
+    const [selectedCatId, setSelectedCatId] = useState(0);
 
     useEffect(() => {
         // Đọc thông tin từ LocalStorage, đồng thời chuyển đối từ JSON string -> Javascript Object
@@ -23,9 +24,15 @@ function Job() {
                 if (search.length == 0)
                     setJobs(result);
                 else {
-                    // Nếu 'search' có dữ liệu => Lọc ra các jobs có title chứa các kí tự của 'search'
-                    const newJobs = result?.filter(j => j?.title.toLowerCase().includes(search.toLowerCase()));
-                    // Cập nhật lại 'jobs' state
+                    // TH: search, selectedCatId có dữ liệu
+                    let newJobs = [];
+                    if(selectedCatId!=0){
+                        // Nếu 'search' có dữ liệu => Lọc ra các jobs có title chứa các kí tự của 'search'
+                        newJobs = result?.filter(j => (j?.title.toLowerCase().includes(search.toLowerCase()) && j?.cId == selectedCatId));
+                        // Cập nhật lại 'jobs' state
+                    }else{
+                        newJobs = result?.filter(j => j?.title.toLowerCase().includes(search.toLowerCase()));
+                    }
                     setJobs(newJobs);
                 }
             });
@@ -35,7 +42,20 @@ function Job() {
             .then(response => response.json())
             .then(result => setCategories(result));
 
-    }, [search]);
+    }, [search, selectedCatId]);
+
+    function handleRemove(id){
+        if(window.confirm(`Do you want to delete Job with id = ${id}?`)){
+            // Gửi request bằng phương thức: DELETE tới api
+            fetch("http://localhost:9999/jobs/"+id, {
+                method: "DELETE",
+            })
+            .then(()=>{
+                alert("Remove success!");
+                window.location.reload();
+            })
+        }
+    }
 
     return (
         <div>
@@ -47,13 +67,20 @@ function Job() {
             </div>
             <div>
                 Category:
-                <select>
-                    <option value="">Cat 1</option>
+                <select onChange={(e) => setSelectedCatId(parseInt(e.target.value))}>
+                    <option value="0">-- Select Category --</option>
+                    {
+                        categories?.map(c => (
+                            <option value={c?.cId} key={c?.cId}>{c?.name}</option>
+                        ))
+                    }
                 </select>
 
                 Status:
                 <select>
-                    <option value="">Completed</option>
+                    <option value="">-- Select Status --</option>
+                    <option value="true">Completed</option>
+                    <option value="false">In-Completed</option>
                 </select>
             </div>
             <hr />
@@ -67,7 +94,7 @@ function Job() {
                         {
                             jobs?.map(j => (
                                 <tr>
-                                    <td>{j?.jId}</td>
+                                    <td>{j?.id}</td>
                                     <td>{j?.title}</td>
                                     <td>
                                         {
@@ -76,10 +103,10 @@ function Job() {
                                     </td>
                                     <td>{j?.status == true ? <span>Completed</span> : <span>In-Completed</span>}</td>
                                     <td>
-                                        <Link to={"/jobs/" + j?.jId}>Job details</Link>
+                                        <Link to={"/jobs/" + j?.id}>Job details</Link>
                                     </td>
                                     <td>
-                                        <a href="#">Remove</a>
+                                        <a href="#" onClick={()=>handleRemove(j?.id)}>Remove</a>
                                     </td>
                                 </tr>
                             ))
