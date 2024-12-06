@@ -3,6 +3,7 @@ import Login from "./components/login";
 import Job from "./components/job";
 import Detail from "./components/detail";
 import { useEffect, useState } from "react";
+import AddNewJob from "./components/addJob";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -40,6 +41,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/jobs" element={<Job />} />
           <Route path="/jobs/:id" element={<Detail />} />
+          <Route path="/jobs/create" element={<AddNewJob/>} />
         </Routes>
       </BrowserRouter>
       <footer>Footer template</footer>

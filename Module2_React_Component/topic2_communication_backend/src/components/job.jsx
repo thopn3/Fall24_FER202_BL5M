@@ -83,6 +83,11 @@ function Job() {
                     <option value="false">In-Completed</option>
                 </select>
             </div>
+
+            <div style={{textAlign:"right"}}>
+                <Link to={"/jobs/create"}>Add new Job</Link>
+            </div>
+            
             <hr />
             {
                 jobs.length == 0 ?
